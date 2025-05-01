@@ -1,7 +1,11 @@
 package com.ing.wallet.presentation;
 
+import com.ing.wallet.application.dto.request.ApproveTransactionRequest;
+import com.ing.wallet.application.dto.request.DepositRequest;
+import com.ing.wallet.application.dto.request.WithdrawRequest;
+import com.ing.wallet.application.dto.response.TransactionResponse;
 import com.ing.wallet.application.service.TransactionService;
-import com.ing.wallet.domain.entity.Transaction;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +25,27 @@ import java.util.List;
 public class TransactionController {
     private final TransactionService transactionService;
 
-    @PostMapping
-    public ResponseEntity<Transaction> createTransaction(@RequestBody Transaction transaction) {
-        return ResponseEntity.ok(transactionService.createTransaction(transaction));
+    @GetMapping("/{walletId}")
+    public ResponseEntity<List<TransactionResponse>> listTransactions(@PathVariable Long walletId) {
+        List<TransactionResponse> transactions = transactionService.listTransactions(walletId);
+        return ResponseEntity.ok(transactions);
     }
 
-    @GetMapping("/{walletId}")
-    public ResponseEntity<List<Transaction>> listTransactions(@PathVariable Long walletId) {
-        return ResponseEntity.ok(transactionService.listTransactions(walletId));
+    @PostMapping("/deposit")
+    public ResponseEntity<TransactionResponse> deposit(@Valid @RequestBody DepositRequest request) {
+        TransactionResponse response = transactionService.deposit(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/withdraw")
+    public ResponseEntity<TransactionResponse> withdraw(@Valid @RequestBody WithdrawRequest request) {
+        TransactionResponse response = transactionService.withdraw(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/approve")
+    public ResponseEntity<TransactionResponse> approveTransaction(@Valid @RequestBody ApproveTransactionRequest request) {
+        TransactionResponse response = transactionService.approveTransaction(request);
+        return ResponseEntity.ok(response);
     }
 }

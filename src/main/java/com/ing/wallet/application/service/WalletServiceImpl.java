@@ -1,6 +1,9 @@
 package com.ing.wallet.application.service;
 
+import com.ing.wallet.application.dto.request.CreateWalletRequest;
+import com.ing.wallet.application.dto.response.WalletResponse;
 import com.ing.wallet.domain.entity.Wallet;
+import com.ing.wallet.domain.mapper.WalletMapper;
 import com.ing.wallet.domain.repository.WalletRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,12 +18,16 @@ import java.util.List;
 public class WalletServiceImpl implements WalletService {
 
     private final WalletRepository walletRepository;
+    private final WalletMapper walletMapper;
 
-    public Wallet createWallet(Wallet wallet) {
-        return walletRepository.save(wallet);
+    public WalletResponse createWallet(CreateWalletRequest request) {
+        Wallet wallet = walletMapper.toEntity(request);
+        wallet = walletRepository.save(wallet);
+        return walletMapper.toResponse(wallet);
     }
 
-    public List<Wallet> listWallets(Long customerId) {
-        return walletRepository.findByCustomerId(customerId);
+    public List<WalletResponse> listWallets(Long customerId) {
+        List<Wallet> wallets = walletRepository.findByCustomerId(customerId);
+        return walletMapper.toResponseList(wallets);
     }
 }

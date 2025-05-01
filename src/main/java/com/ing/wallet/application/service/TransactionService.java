@@ -1,11 +1,19 @@
 package com.ing.wallet.application.service;
 
-import com.ing.wallet.domain.entity.Transaction;
+import com.ing.wallet.application.dto.request.ApproveTransactionRequest;
+import com.ing.wallet.application.dto.request.DepositRequest;
+import com.ing.wallet.application.dto.request.WithdrawRequest;
+import com.ing.wallet.application.dto.response.TransactionResponse;
 
 import java.util.List;
 
 public interface TransactionService {
-    Transaction createTransaction(Transaction transaction);
 
-    List<Transaction> listTransactions(Long walletId);
+    List<TransactionResponse> listTransactions(Long walletId);
+
+    TransactionResponse deposit(DepositRequest request);
+
+    TransactionResponse withdraw(WithdrawRequest request);
+
+    TransactionResponse approveTransaction(ApproveTransactionRequest request);
 }
