@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface TransactionService {
 
-    List<TransactionResponse> listTransactions(Long walletId);
+    List<TransactionResponse> listTransactions(String walletId);
 
     TransactionResponse deposit(DepositRequest request);
 

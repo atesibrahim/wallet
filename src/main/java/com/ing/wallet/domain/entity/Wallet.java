@@ -23,13 +23,14 @@ import java.util.Currency;
 @Table(name = "wallet")
 @Entity
 @Getter
+@Setter
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Wallet extends AuditingEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "customer_id", nullable = false)
     private Long customerId;
@@ -51,10 +52,10 @@ public class Wallet extends AuditingEntity {
     @Column(name = "active_for_withdraw")
     private boolean activeForWithdraw;
 
-    @Column(name = "active_for_transfer")
+    @Column(name = "balance")
     private double balance;
 
-    @Column(name = "active_for_payment")
+    @Column(name = "usable_balance")
     private double usableBalance;
 
     public enum Currency {

@@ -6,6 +6,8 @@ import com.ing.wallet.application.dto.request.WithdrawRequest;
 import com.ing.wallet.application.dto.response.TransactionResponse;
 import com.ing.wallet.domain.entity.Transaction;
 import com.ing.wallet.domain.entity.Wallet;
+import com.ing.wallet.infrastructure.exception.ExceptionCodes;
+import com.ing.wallet.infrastructure.utils.LogUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
@@ -21,7 +23,7 @@ public class TransactionMapper {
                 .type(Transaction.Type.DEPOSIT)
                 .oppositePartyType(Transaction.OppositePartyType.IBAN)
                 .oppositeParty(request.source())
-                .status(Transaction.Status.PENDING)
+                .status(getStatus(request.amount()))
                 .build();
     }
 
@@ -32,7 +34,7 @@ public class TransactionMapper {
                 .type(Transaction.Type.WITHDRAW)
                 .oppositePartyType(Transaction.OppositePartyType.PAYMENT)
                 .oppositeParty(request.destination())
-                .status(Transaction.Status.PENDING)
+                .status(getStatus(request.amount()))
                 .build();
     }
 
@@ -64,8 +66,7 @@ public class TransactionMapper {
     private static Transaction.Type getTransactionType(String transactionType) {
         Transaction.Type transactionTypeEnum = Transaction.Type.valueOf(transactionType);
         if (ObjectUtils.isEmpty(transactionTypeEnum)) {
-            //TODO: Add logging
-            throw new IllegalArgumentException("Invalid transactionType: " + transactionType);
+            throw LogUtils.logAndThrowError(ExceptionCodes.INVALID_TRANSACTION_TYPE);
         }
         return transactionTypeEnum;
     }
@@ -73,9 +74,15 @@ public class TransactionMapper {
     private static Transaction.Status getStatus(String status) {
         Transaction.Status statusEnum = Transaction.Status.valueOf(status);
         if (ObjectUtils.isEmpty(statusEnum)) {
-            //TODO: Add logging
-            throw new IllegalArgumentException("Invalid status: " + status);
+            throw LogUtils.logAndThrowError(ExceptionCodes.INVALID_TRANSACTION_STATUS);
         }
         return statusEnum;
+    }
+
+    private static Transaction.Status getStatus(Double amount) {
+        if (amount <= 1000) {
+            return Transaction.Status.APPROVED;
+        }
+        return Transaction.Status.PENDING;
     }
 }

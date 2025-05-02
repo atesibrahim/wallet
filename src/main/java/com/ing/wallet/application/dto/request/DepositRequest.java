@@ -10,8 +10,8 @@ public record DepositRequest(
         Double amount,
 
         @NotNull(message = "Wallet ID is required")
-        Long walletId,
+        String walletId,
 
         @NotBlank(message = "Source is required")
-        String source // IBAN or Payment ID
+        String source
 ) {}

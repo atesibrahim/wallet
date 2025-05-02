@@ -1,7 +1,9 @@
 spring:
-  name: wallet
+
+  application:
+    name: wallet
   datasource:
-    url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:test
     driver-class-name: org.h2.Driver
     username: sa
     password:
@@ -12,7 +14,32 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
+
+auth:
+  security:
+    base64-auth-secret: test+base64
+    expire-time: 36000
+    log-validation-exceptions: true
+
+jwt:
+  algorithm: HS256
+  issuer: ing-wallet
+  expiration: 10s
+  secret-key: RNJlNM4SUAnfN7BZD2pDtVVMHBjkw0cJySLt5MQ7O5jpkSc9
+
+crypto:
+  secret-key: BNKG5J3YPX2L6YlpEmcwTor629D1zzcE
+  secret-key-algorithm: AES
+  transformation: AES/GCM/NoPadding
+  gcm-tag-length: 16
+  gcm-iv-length: 12
+
+logging:
+  level:
+    root: INFO
+    com.ing.wallet: INFO
+    com.ing.wallet.infrastructure.security.token.event: DEBUG

@@ -4,7 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record WalletResponse(
-        Long id,
+        String id,
         String walletName,
         String currency,
         boolean activeForShopping,

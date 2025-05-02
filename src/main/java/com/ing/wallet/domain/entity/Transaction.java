@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,11 +29,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Transaction extends AuditingEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "TRANSACTION_ID_GENERATOR", sequenceName = "TRANSACTION_SEQ", allocationSize = 1, initialValue = 100)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRANSACTION_ID_GENERATOR")
+    @Column(name = "ID")
     private Long id;
 
     @Column(name = "wallet_id", nullable = false)
-    private Long walletId;
+    private String walletId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "wallet_id", insertable = false, updatable = false)

@@ -11,9 +11,14 @@ import java.util.List;
 @Component
 public class WalletMapper {
 
+    public static final String COUNTRY_CODE = "TR";
+
     public Wallet toEntity(CreateWalletRequest request) {
         return Wallet.builder()
+                .id(generateNewId())
                 .walletName(request.walletName())
+                .balance(0.0)
+                .usableBalance(0.0)
                 .currency(getCurrency(request.currency()))
                 .activeForShopping(request.activeForShopping())
                 .activeForWithdraw(request.activeForWithdraw())
@@ -50,5 +55,11 @@ public class WalletMapper {
             throw new IllegalArgumentException("Invalid currency: " + currency);
         }
         return currencyE;
+    }
+
+    private String generateNewId() {
+        int checkDigits = (int) (Math.random() * 100);
+        String bban = String.format("%016d", (long) (Math.random() * Math.pow(10, 16)));
+        return COUNTRY_CODE + String.format("%02d", checkDigits) + bban;
     }
 }

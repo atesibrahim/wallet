@@ -10,7 +10,7 @@ public record WithdrawRequest(
         Double amount,
 
         @NotNull(message = "Wallet ID is required")
-        Long walletId,
+        String walletId,
 
         @NotBlank(message = "Destination is required")
         String destination

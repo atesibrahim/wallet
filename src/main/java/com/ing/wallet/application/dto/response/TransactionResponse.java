@@ -5,7 +5,7 @@ import lombok.Builder;
 @Builder
 public record TransactionResponse(
         Long id,
-        Long walletId,
+        String walletId,
         double amount,
         String type,
         String oppositePartyType,

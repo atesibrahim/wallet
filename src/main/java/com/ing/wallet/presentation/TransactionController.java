@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/transactions")
+@RequestMapping("wallet/v1/transactions")
 @RequiredArgsConstructor
 @Slf4j
 public class TransactionController {
     private final TransactionService transactionService;
 
     @GetMapping("/{walletId}")
-    public ResponseEntity<List<TransactionResponse>> listTransactions(@PathVariable Long walletId) {
+    public ResponseEntity<List<TransactionResponse>> listTransactions(@PathVariable String walletId) {
         List<TransactionResponse> transactions = transactionService.listTransactions(walletId);
         return ResponseEntity.ok(transactions);
     }

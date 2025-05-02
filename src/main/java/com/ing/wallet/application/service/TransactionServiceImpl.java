@@ -24,7 +24,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransactionMapper transactionMapper;
 
     @Override
-    public List<TransactionResponse> listTransactions(Long walletId) {
+    public List<TransactionResponse> listTransactions(String walletId) {
         List<Transaction> transactions = transactionRepository.findByWalletId(walletId);
         return transactionMapper.toResponseList(transactions);
     }
