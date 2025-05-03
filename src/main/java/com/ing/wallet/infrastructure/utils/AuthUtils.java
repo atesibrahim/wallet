@@ -1,6 +1,6 @@
 package com.ing.wallet.infrastructure.utils;
 
-import com.ing.wallet.application.dto.response.UserDto;
+import com.ing.wallet.authentication.application.dto.response.UserDto;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

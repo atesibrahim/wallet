@@ -1,7 +1,6 @@
 package com.ing.wallet.infrastructure.security;
 
-import com.ing.wallet.domain.entity.Customer;
-import com.ing.wallet.domain.enums.AuthorityType;
+import com.ing.wallet.authentication.domain.enums.AuthorityType;
 import com.ing.wallet.infrastructure.exception.ExceptionCodes;
 import com.ing.wallet.infrastructure.exception.WalletBusinessException;
 import org.springframework.security.authorization.AuthorizationDecision;

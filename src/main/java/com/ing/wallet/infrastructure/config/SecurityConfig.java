@@ -2,7 +2,7 @@ package com.ing.wallet.infrastructure.config;
 
 import com.ing.wallet.infrastructure.constant.AuthorizationHeaderWriter;
 import com.ing.wallet.infrastructure.constant.SecurityConfigConstants;
-import com.ing.wallet.domain.enums.AuthorityType;
+import com.ing.wallet.authentication.domain.enums.AuthorityType;
 import com.ing.wallet.infrastructure.security.AccessLogFilter;
 import com.ing.wallet.infrastructure.security.CustomAccessDeniedHandler;
 import com.ing.wallet.infrastructure.security.JwtUserDetailsConverter;

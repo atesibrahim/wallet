@@ -1,6 +1,6 @@
 package com.ing.wallet.infrastructure.security.token.event;
 
-import com.ing.wallet.application.dto.response.UserDto;
+import com.ing.wallet.authentication.application.dto.response.UserDto;
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.security.oauth2.jwt.Jwt;

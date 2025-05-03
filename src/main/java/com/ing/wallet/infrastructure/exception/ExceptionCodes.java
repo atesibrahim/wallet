@@ -1,6 +1,6 @@
 package com.ing.wallet.infrastructure.exception;
 
-import com.ing.wallet.application.dto.response.ErrorResponse;
+import com.ing.wallet.authentication.application.dto.response.ErrorResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -26,6 +26,8 @@ public enum ExceptionCodes {
     INVALID_REQUEST("R1", "Invalid request"),
 
     WALLET_NOT_FOUND("W1", "Wallet not found"),
+    INSUFFICIENT_BALANCE("W2", "Insufficient balance"),
+    INSUFFICIENT_USABLE_BALANCE("W3", "Insufficient usable balance"),
 
     CUSTOMER_NOT_FOUND("C1", "Customer not found"),
 
@@ -34,6 +36,7 @@ public enum ExceptionCodes {
     TRANSACTION_CURRENCY_NOT_MATCH("T3", "Transaction currency not match"),
     TRANSACTION_TYPE_NOT_MATCH("T4", "Transaction type not match"),
     TRANSACTION_STATUS_NOT_MATCH("T5", "Transaction status not match"),
+    TRANSACTION_STATUS_SHOULD_BE_PENDING("T6", "Transaction status should be pending")
     ;
 
     private final String code;
