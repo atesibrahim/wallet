@@ -4,6 +4,14 @@
 The Wallet Application is a Spring Boot-based project designed to manage user authentication, authorization, and wallet-related operations. 
 It leverages Spring Security for securing endpoints, Spring Data JPA for database interactions, and Gradle for build automation. 
 The application is containerized using Docker for easy deployment.
+- The project is structured to support multiple user roles (CUSTOMER, ADMIN, USER) with different access levels to various endpoints.
+- The application designed with *DDD (Domain-Driven Design)* principles, ensuring a clear separation of concerns and a well-defined domain model.
+- *SOLID* principles are followed to ensure that the code is maintainable, scalable, and easy to understand.
+- The application is designed to be modular and extensible, allowing for easy integration of additional features in the future.
+
+- The application uses JWT (JSON Web Tokens) for secure authentication and authorization, ensuring that only authorized users can access specific resources.
+- The project is built using Java 17 and follows best practices for RESTful API design.
+- The application is equipped with Swagger for API documentation, making it easy for developers to understand and interact with the available endpoints.
 
 ## Features
 - User authentication and authorization using Spring Security.
