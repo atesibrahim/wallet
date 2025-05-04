@@ -49,6 +49,8 @@ public class TransactionServiceImpl implements TransactionService {
     public TransactionResponse withdraw(WithdrawRequest request) {
         log.info("Processing withdrawal for walletId: {}, amount: {}", request.walletId(), request.amount());
         Wallet wallet = getWallet(request.walletId());
+        isWalletActiveForWithdraw(wallet.isActiveForWithdraw());
+        isWalletActiveForShopping(wallet.isActiveForShopping());
         checkBalances(wallet.getBalance(), wallet.getUsableBalance(), request.amount());
         updateWalletBalanceForWithdraw(wallet, -request.amount());
         Transaction transaction = transactionMapper.toEntity(request);
@@ -110,6 +112,18 @@ public class TransactionServiceImpl implements TransactionService {
     private void checkUsableBalance(Double usableBalance, Double amount) {
         if (usableBalance < amount) {
             throw LogUtils.logAndThrowError(ExceptionCodes.INSUFFICIENT_USABLE_BALANCE);
+        }
+    }
+
+    private void isWalletActiveForWithdraw(Boolean isActiveForWithdraw) {
+        if (!isActiveForWithdraw) {
+            throw LogUtils.logAndThrowError(ExceptionCodes.WALLET_NOT_ACTIVE_FOR_WITHDRAW);
+        }
+    }
+
+    private void isWalletActiveForShopping(Boolean isActiveForShopping) {
+        if (!isActiveForShopping) {
+            throw LogUtils.logAndThrowError(ExceptionCodes.WALLET_NOT_ACTIVE_FOR_SHOPPING);
         }
     }
 

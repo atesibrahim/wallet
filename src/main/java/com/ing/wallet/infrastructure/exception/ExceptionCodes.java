@@ -36,8 +36,9 @@ public enum ExceptionCodes {
     TRANSACTION_CURRENCY_NOT_MATCH("T3", "Transaction currency not match"),
     TRANSACTION_TYPE_NOT_MATCH("T4", "Transaction type not match"),
     TRANSACTION_STATUS_NOT_MATCH("T5", "Transaction status not match"),
-    TRANSACTION_STATUS_SHOULD_BE_PENDING("T6", "Transaction status should be pending")
-    ;
+    TRANSACTION_STATUS_SHOULD_BE_PENDING("T6", "Transaction status should be pending"),
+    WALLET_NOT_ACTIVE_FOR_WITHDRAW("W4", "Wallet not active for withdraw"),
+    WALLET_NOT_ACTIVE_FOR_SHOPPING("W5", "Wallet not active for deposit"),;
 
     private final String code;
     private final String message;

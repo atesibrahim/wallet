@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "4edd7ac2-1890-4c3e-9f69-b4791a4f7431",
+		"name": "wallet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16296716"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"b@test.com\",\r\n  \"password\": \"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/wallet/v1/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wallet",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list wallets",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpbmctd2FsbGV0Iiwic3ViIjoiYkBhdGVzLmNvbSIsImV4cCI6MTc0NjIyMjMzMCwiaWF0IjoxNzQ2MjIyMzIwLCJ1c2VyIjoiQUFBQUFBQUFBQUFBQUFBQWhGT2l1VGNkYzg3RnV5VElnejhHQnVuWjU4a3NocUpBeFNtN0NtRTlrVm5UMmxWbWJWbUl4V2UwR0Y4THo1eEE2aCs5TDZoeG9PSnJUTHNRcC9ya0pneTJ2Mzd4TmJUSGY5R2Y1c2hGUkgvVkRST20zZElmN2J1YlE0NnZFRGtvWTdReWxXK2trZHMwYVB5WDhPK2pMdlpxN1BCWG43b0E5YUx2Um1DZXFZbjVsbU5kNm5zenpGU3J4Sy9kQUhXbGxLaS9EVWlsNUhEWWVETmt5SVhWa0poaHRkNG1XSnRrbmRTUkJxMkR1V3V3d2xzcVo3MDhjOTZVcHBHc2x3TG5wcDVpUXRGZi8rNmszQXBlQkdkMWpUdGhnbmRTdkM1Nm9INjJoQm5oMVZRTzZKaXFna0VTcDEvQWZZdS9Fa2JwVTRwMzJBQzhnU1dNRWo0VVZuTk44aVdZK2VERm5zaGdJMkF4VkdhRWwrRVFGOG1MS2pjTTYvaGlsODQ9In0.--cGnGyx06LQcj266EIo12LePnymk83m24cuXEdOg_g",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/wallet/v1/wallets/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wallet",
+						"v1",
+						"wallets",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create a wallet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var value = pm.response.headers.get(\"Authorization\");\r",
+							"if(value != null){\r",
+							"    var list = value.split(\" \");\r",
+							"    if(list.length ===2){\r",
+							"        pm.environment.set(\"token\", list[1]);\r",
+							"    }\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpbmctd2FsbGV0Iiwic3ViIjoiYkBhdGVzLmNvbSIsImV4cCI6MTc0NjIyMjMzMCwiaWF0IjoxNzQ2MjIyMzIwLCJ1c2VyIjoiQUFBQUFBQUFBQUFBQUFBQWhGT2l1VGNkYzg3RnV5VElnejhHQnVuWjU4a3NocUpBeFNtN0NtRTlrVm5UMmxWbWJWbUl4V2UwR0Y4THo1eEE2aCs5TDZoeG9PSnJUTHNRcC9ya0pneTJ2Mzd4TmJUSGY5R2Y1c2hGUkgvVkRST20zZElmN2J1YlE0NnZFRGtvWTdReWxXK2trZHMwYVB5WDhPK2pMdlpxN1BCWG43b0E5YUx2Um1DZXFZbjVsbU5kNm5zenpGU3J4Sy9kQUhXbGxLaS9EVWlsNUhEWWVETmt5SVhWa0poaHRkNG1XSnRrbmRTUkJxMkR1V3V3d2xzcVo3MDhjOTZVcHBHc2x3TG5wcDVpUXRGZi8rNmszQXBlQkdkMWpUdGhnbmRTdkM1Nm9INjJoQm5oMVZRTzZKaXFna0VTcDEvQWZZdS9Fa2JwVTRwMzJBQzhnU1dNRWo0VVZuTk44aVdZK2VERm5zaGdJMkF4VkdhRWwrRVFGOG1MS2pjTTYvaGlsODQ9In0.--cGnGyx06LQcj266EIo12LePnymk83m24cuXEdOg_g",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"walletName\": \"My Wallet2\",\r\n    \"currency\": \"EUR\",\r\n    \"activeForShopping\": true,\r\n    \"activeForWithdraw\": true,\r\n    \"customerId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/wallet/v1/wallets",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wallet",
+						"v1",
+						"wallets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list transactions",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpbmctd2FsbGV0Iiwic3ViIjoiYkBhdGVzLmNvbSIsImV4cCI6MTc0NjI2MDA1NywiaWF0IjoxNzQ2MjU5ODc3LCJ1c2VyIjoiQUFBQUFBQUFBQUFBQUFBQWhGT2l1VGNkYzg3RnV5VElnejhHQnVuWjU4a3NocUpBeFNtN0NtRTlrVm5UMmxWbWJWbUl4V2UwR0Y4THo1eEE2aCs5TDZoeG9PSnJUTHNRcC9ya0pneTJ2Mzd4TmJUSGY5R2Y1c2hGUkgvVkRST20zZElmN2J1YlE0NnZFRGtvWTdReWxXK2trZHMwYVB5WDhPK2pMdlpxN1BCWG43b0E5YUx2Um1DZXFZbjVsbU5kNm5zenpGU3J4Sy9kQUhXbGxLaS9EVWlsNUhEWWVETmt5SVhWa0poaHRkNG1XSnRrbmRTUkJxMkR1V3V3d2xzcVo3MDhjOTZVcHBHc2x3TGx0NWhwVXRGZjJPQ200eXRTQVVkcDMyaG5sV1lWcW5ocHRuajEweGIyK0ZRVnc1U1VoRjB5dXcyVGU1eXVWVkMvUW8xM2tFZXpsaStDQ3lNdWQzSm14anFTNE9ERm5zaGdJMkF4VkJpQTFHUmppYXVNVXNUK2NGandxdm89In0.ZNewjG5AXttDR1mII0dUK8F5LMXBf9IIssa6nsS-090",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/wallet/v1/transactions/TR11234",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wallet",
+						"v1",
+						"transactions",
+						"TR11234"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deposit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpbmctd2FsbGV0Iiwic3ViIjoiYkBhdGVzLmNvbSIsImV4cCI6MTc0NjI1OTk2MCwiaWF0IjoxNzQ2MjU5NzgwLCJ1c2VyIjoiQUFBQUFBQUFBQUFBQUFBQWhGT2l1VGNkYzg3RnV5VElnejhHQnVuWjU4a3NocUpBeFNtN0NtRTlrVm5UMmxWbWJWbUl4V2UwR0Y4THo1eEE2aCs5TDZoeG9PSnJUTHNRcC9ya0pneTJ2Mzd4TmJUSGY5R2Y1c2hGUkgvVkRST20zZElmN2J1YlE0NnZFRGtvWTdReWxXK2trZHMwYVB5WDhPK2pMdlpxN1BCWG43b0E5YUx2Um1DZXFZbjVsbU5kNm5zenpGU3J4Sy9kQUhXbGxLaS9EVWlsNUhEWWVETmt5SVhWa0poaHRkNG1XSnRrbmRTUkJxMkR1V3V3d2xzcVo3MDhjOTZVcHBHc2x3TGx0NWhwVXRGZjJPQ200eXRTQVVkcDMyaG5sV1lWcW5ocHRuajEweGIyK0ZRVnc1U1VoRjB5dXcyVGU1eXVWVkMvUW8xM2tFZXpsaStDQ3lNdWQzSm14anFTNE9ERm5zaGdJMkF4VkJpQTFHUmppYXVNVXNUK2NGandxdm89In0.2c42U5kYwcOqftm0uFCO3AjVMA-ZirnTUg3ZR9LyvjM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"amount\": \"1230\",\r\n  \"walletId\": \"TR11234\",\r\n  \"source\": \"TR4545\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/wallet/v1/transactions/deposit",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wallet",
+						"v1",
+						"transactions",
+						"deposit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "withdraw",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpbmctd2FsbGV0Iiwic3ViIjoiYkBhdGVzLmNvbSIsImV4cCI6MTc0NjI1OTU5OSwiaWF0IjoxNzQ2MjU5NDE5LCJ1c2VyIjoiQUFBQUFBQUFBQUFBQUFBQWhGT2l1VGNkYzg3RnV5VElnejhHQnVuWjU4a3NocUpBeFNtN0NtRTlrVm5UMmxWbWJWbUl4V2UwR0Y4THo1eEE2aCs5TDZoeG9PSnJUTHNRcC9ya0pneTJ2Mzd4TmJUSGY5R2Y1c2hGUkgvVkRST20zZElmN2J1YlE0NnZFRGtvWTdReWxXK2trZHMwYVB5WDhPK2pMdlpxN1BCWG43b0E5YUx2Um1DZXFZbjVsbU5kNm5zenpGU3J4Sy9kQUhXbGxLaS9EVWlsNUhEWWVETmt5SVhWa0poaHRkNG1XSnRrbmRTUkJxMkR1V3V3d2xzcVo3MDhjOTZVcHBHc2x3TG5wcDVpUXRGZi8rNmszQXBlQkdkMWpUdGhnbmRTdkM1Nm9INjJoQm5oMVZRTzZKaXFna0VTcDEvQWZZdS9Fa2JwVTRwMzJBQzhnU1dNRWo0VVZuTk44aVdZK2VERm5zaGdJMkF4VkdhRWwrRVFGOG1MS2pjTTYvaGlsODQ9In0.qW__k-NPesxc60ko4_4QHMjxLGxETKGU91BZ1FWQCrI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"amount\": \"300\",\r\n  \"walletId\": \"TR11234\",\r\n  \"destination\": \"TR123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/wallet/v1/transactions/withdraw",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wallet",
+						"v1",
+						"transactions",
+						"withdraw"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "approve",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpbmctd2FsbGV0Iiwic3ViIjoiYUBhdGVzLmNvbSIsImV4cCI6MTc0NjI1OTk5MiwiaWF0IjoxNzQ2MjU5ODEyLCJ1c2VyIjoiQUFBQUFBQUFBQUFBQUFBQWhGT2l1VGNkYzg3RnV5VElnejhHQnVuWjU4a3NocUpBeFNtN0NtRTlrVm5UMmxWbWJWbUl4V2UwR0Y4THo1eEE2aCs5TDZoeG9PSm9UN0JSN3ZxN2NRMnRySDMxZXV2SEQ1eWs1ZEplUW4vVkRST20zZElmN2J1YlFJNnZFRGtvWTdReWxXK2trZHMwYVB5WDhPK2pMdlpxN1BCWG43b0E5YUx2Um1DZXFZbjVsbUZNOUdZeW8welZ4SUtEVFhPK243dWtQVUs4MVhHUkp6TXpub2VNM29RLytOZzlVNGgvcTlTRkpxMldvMXFzd1dvckx1SThKSWlXLzkraDJFUHJvWlZ5YWRCRjJ1Q3J4Q0ZWU0JoNWp5ZDJ5ekVSNVRsbm9IWHU2QmZzODBNTDc1NkJpUTF0cTEzY2FzTDVVdzc0UlpwOGdFdThqald0Q0Q0bFlHeEt6Qytmc0wvVnpvZHhMTU9aSyt4RStHdTVVcHV1bXR4MFJHUT0ifQ.ZaVhSQ336fpKHGQn3ojyhzDLYw6aG8X22mFsHlEZI00",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"transactionId\": \"100\",\r\n  \"status\": \"APPROVED\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/wallet/v1/transactions/approve",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wallet",
+						"v1",
+						"transactions",
+						"approve"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

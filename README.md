@@ -18,6 +18,7 @@ The application is containerized using Docker for easy deployment.
 - Role-based (CUSTOMER, ADMIN, USER) access control with `AuthorityType` enums.
 - RESTful APIs for wallet operations.
 - Swagger integration for API documentation.
+- Postman collection for testing API endpoints.
 - Integration with OAuth2 resource server.
 - In-memory H2 database for testing and development.
 - Dockerized for seamless deployment.
@@ -76,6 +77,8 @@ The application exposes several RESTful APIs for wallet operations. Below are so
 - `POST /wallet/v1/transactions/deposit`: Deposit an amount into a wallet.
 - `POST /wallet/v1/transactions/withdraw`: Withdraw an amount from a wallet.
 - `POST /wallet/v1/transactions/approve`: Approve a transaction.
+
+Postman collection is provided in the `resources/static` directory as [wallet.postman_collection.json](src/main/resources/static/wallet.postman_collection.json) for testing the API endpoints.
 
 ### 6. Testing
 The project includes unit and integration tests. You can run the tests using:

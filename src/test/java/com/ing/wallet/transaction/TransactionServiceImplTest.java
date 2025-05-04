@@ -47,6 +47,7 @@ class TransactionServiceImplTest {
         Wallet wallet = new Wallet();
         wallet.setId("1L");
         wallet.setBalance(1000);
+        wallet.setActiveForShopping(true);
         double amount = 500;
         Transaction transactionInput = new Transaction();
         transactionInput.setId(1L);
@@ -77,6 +78,8 @@ class TransactionServiceImplTest {
         wallet.setId("1L");
         wallet.setBalance(1000);
         wallet.setUsableBalance(1000);
+        wallet.setActiveForWithdraw(true);
+        wallet.setActiveForShopping(true);
         double amount = 500;
         Transaction transactionInput = new Transaction();
         transactionInput.setId(1L);
@@ -108,6 +111,8 @@ class TransactionServiceImplTest {
         wallet.setId("1L");
         wallet.setBalance(100);
         wallet.setUsableBalance(100);
+        wallet.setActiveForWithdraw(true);
+        wallet.setActiveForShopping(true);
         double amount = 500;
         WithdrawRequest withdrawRequest = new WithdrawRequest(amount, "1L", "source");
 
@@ -117,6 +122,48 @@ class TransactionServiceImplTest {
                 transactionService.withdraw(withdrawRequest));
 
         assertEquals(ExceptionCodes.INSUFFICIENT_BALANCE.getMessage(), exception.getMessage());
+        verify(transactionRepository, never()).save(any(Transaction.class));
+        verify(walletRepository, times(1)).findById("1L");
+    }
+
+    @Test
+    void testWithdrawFunds_NotActiveForWithdraws() {
+        Wallet wallet = new Wallet();
+        wallet.setId("1L");
+        wallet.setBalance(100);
+        wallet.setUsableBalance(100);
+        wallet.setActiveForWithdraw(false);
+        wallet.setActiveForShopping(true);
+        double amount = 500;
+        WithdrawRequest withdrawRequest = new WithdrawRequest(amount, "1L", "source");
+
+        when(walletRepository.findById("1L")).thenReturn(Optional.of(wallet));
+
+        Exception exception = assertThrows(WalletBusinessException.class, () ->
+                transactionService.withdraw(withdrawRequest));
+
+        assertEquals(ExceptionCodes.WALLET_NOT_ACTIVE_FOR_WITHDRAW.getMessage(), exception.getMessage());
+        verify(transactionRepository, never()).save(any(Transaction.class));
+        verify(walletRepository, times(1)).findById("1L");
+    }
+
+    @Test
+    void testWithdrawFunds_NotActiveForShopping() {
+        Wallet wallet = new Wallet();
+        wallet.setId("1L");
+        wallet.setBalance(100);
+        wallet.setUsableBalance(100);
+        wallet.setActiveForWithdraw(true);
+        wallet.setActiveForShopping(false);
+        double amount = 500;
+        WithdrawRequest withdrawRequest = new WithdrawRequest(amount, "1L", "source");
+
+        when(walletRepository.findById("1L")).thenReturn(Optional.of(wallet));
+
+        Exception exception = assertThrows(WalletBusinessException.class, () ->
+                transactionService.withdraw(withdrawRequest));
+
+        assertEquals(ExceptionCodes.WALLET_NOT_ACTIVE_FOR_SHOPPING.getMessage(), exception.getMessage());
         verify(transactionRepository, never()).save(any(Transaction.class));
         verify(walletRepository, times(1)).findById("1L");
     }
