@@ -9,10 +9,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class RequestUtils {
-    private static final String AUTHORIZATION = "Authorization";
-    private static final String FORWARDED_FOR = "X-Forwarded-For";
-    private static final String ACCEPT = "Accept";
-    private static final String PORTAL_CLIENT_ACCEPT_HEADER = "application/json, text/plain, */*";
     private static final String RESPONSE_TOKEN = RequestUtils.class.getName() + ".RESPONSE_TOKEN";
 
     private RequestUtils() {
@@ -36,20 +32,5 @@ public class RequestUtils {
         getHttpServletRequest().ifPresent((request) -> {
             request.setAttribute(RESPONSE_TOKEN, token);
         });
-    }
-
-    public static String getClientIPAddress() {
-        return (String)getHttpServletRequest().map(RequestUtils::getClientIPAddress).orElseThrow();
-    }
-
-    public static String getClientIPAddress(final HttpServletRequest httpServletRequest) {
-        return (String)Optional.of(httpServletRequest).map((request) -> {
-            String forwardedFor = request.getHeader(FORWARDED_FOR);
-            return (String)Objects.requireNonNullElse(forwardedFor, request.getRemoteAddr());
-        }).orElseThrow();
-    }
-
-    public static Map<String, String> getHeadersWithAuthorizationForPortalClient(String accessToken) {
-        return Map.of(AUTHORIZATION, "Bearer " + accessToken, ACCEPT, "application/json, text/plain, */*");
     }
 }

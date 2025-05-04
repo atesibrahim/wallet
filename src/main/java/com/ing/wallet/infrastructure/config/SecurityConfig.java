@@ -61,15 +61,6 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .headers(headers->headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
-                .headers(
-                        httpSecurityHeadersConfigurer -> {
-                            httpSecurityHeadersConfigurer.httpStrictTransportSecurity(
-                                    hstsConfig -> hstsConfig.includeSubDomains(true));
-                            httpSecurityHeadersConfigurer.addHeaderWriter(AuthorizationHeaderWriter.INSTANCE);
-                            httpSecurityHeadersConfigurer.contentSecurityPolicy(
-                                    contentSecurityPolicyConfig ->
-                                            contentSecurityPolicyConfig.policyDirectives("script-src 'self' https://www.google.com https://www.gstatic.com 'nonce-{nonce}';"));
-                        })
                 .oauth2ResourceServer(
                         httpSecurityOAuth2ResourceServerConfigurer ->
                                 httpSecurityOAuth2ResourceServerConfigurer.jwt(

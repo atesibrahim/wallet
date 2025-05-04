@@ -26,16 +26,16 @@ public class TokenHelper {
     public String getAccessToken() {
         final var authenticatedUser = AuthUtils.getUser();
         final var accessTokenDifference =
-                getDifferenceBetweenExpireTimeAndNow(authenticatedUser.getProviderToken());
+                getDifferenceBetweenExpireTimeAndNow(authenticatedUser.getToken());
         final var timeUntilExpiration = 3600;
         if (accessTokenDifference > timeUntilExpiration) {
-            return authenticatedUser.getProviderToken();
+            return authenticatedUser.getToken();
         }
-        if (Objects.isNull(authenticatedUser.getProviderRefreshToken())) {
+        if (Objects.isNull(authenticatedUser.getRefreshToken())) {
             throw new WalletBusinessException(ExceptionCodes.TOKEN_NULL_ERROR);
         }
         final var refreshTokenDifference =
-                getDifferenceBetweenExpireTimeAndNow(authenticatedUser.getProviderRefreshToken());
+                getDifferenceBetweenExpireTimeAndNow(authenticatedUser.getRefreshToken());
         if (refreshTokenDifference <= 0) {
             tokenService.invalidateTokenByUser(authenticatedUser);
             log.error(ExceptionCodes.TOKEN_EXPIRED_ERROR.getMessage());
@@ -44,12 +44,12 @@ public class TokenHelper {
 
         final var user =
                 authenticatedUser.toBuilder()
-                        .providerToken("")
-                        .providerRefreshToken("refreshTokenResponse.refreshToken()")
+                        .token("")
+                        .refreshToken("refreshTokenResponse.refreshToken()")
                         .build();
         tokenService.createToken(user);
         AuthUtils.authenticate(user);
-        return user.getProviderToken();
+        return user.getToken();
     }
 
     private Long getDifferenceBetweenExpireTimeAndNow(final String token) {

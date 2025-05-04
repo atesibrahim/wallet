@@ -41,7 +41,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .isEnabled(true)
                 .authorities(Set.of(AuthorityType.LOGGED_IN, getAuthorityType(customer)))
                 .build();
-        tokenService.createToken(userDto);
+        String token = tokenService.createToken(userDto);
+        userDto.setToken(token);
         AuthUtils.authenticate(userDto);
 
         return userDto;
