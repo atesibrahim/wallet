@@ -146,7 +146,7 @@ To interact with the API endpoints, follow these steps:
 
 1. **Create a Wallet**  
   Customer role has access to create a wallet.
-   Endpoint: `POST /wallet/v1/wallets`  
+   Endpoint: `POST localhost:8080/wallet/v1/wallets`  
    Example request:
    ```json
    {
@@ -160,15 +160,15 @@ To interact with the API endpoints, follow these steps:
 
 2. **List Wallets**  
     Customer role has access to list wallets.
-   Endpoint: `GET /wallet/v1/wallets/{customerId}`  
+   Endpoint: `GET localhost:8080/wallet/v1/wallets/{customerId}`  
    Example request:
    ```
-   GET /wallet/v1/wallets/1
+   GET localhost:8080/wallet/v1/wallets/1
    ```
 
 3. **Deposit Funds**  
     Customer role has access to deposit funds.
-   Endpoint: `POST /wallet/v1/transactions/deposit`  
+   Endpoint: `POST localhost:8080/wallet/v1/transactions/deposit`  
    Example request:
    ```json
    {
@@ -180,7 +180,7 @@ To interact with the API endpoints, follow these steps:
 
 4. **Withdraw Funds**  
     Customer role has access to withdraw funds.
-   Endpoint: `POST /wallet/v1/transactions/withdraw`  
+   Endpoint: `POST localhost:8080/wallet/v1/transactions/withdraw`  
    Example request:
    ```json
    {
@@ -189,10 +189,17 @@ To interact with the API endpoints, follow these steps:
    "destination": "TR123"
    }
    ```
+5. **List Transactions**  
+    Customer role has access to list transactions.
+   Endpoint: `GET localhost:8080/wallet/v1/transactions/{walletId}`  
+   Example request:
+   ```
+   GET localhost:8080/wallet/v1/transactions/TR11234
+   ```
 
-5. **Approve a Transaction**  
+6. **Approve a Transaction**  
     Admin role has access to approve transactions.
-   Endpoint: `POST /wallet/v1/transactions/approve`  
+   Endpoint: `POST localhost:8080/wallet/v1/transactions/approve`  
    Example request:
    ```json
    {

@@ -48,8 +48,9 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public TransactionResponse withdraw(WithdrawRequest request) {
         log.info("Processing withdrawal for walletId: {}, amount: {}", request.walletId(), request.amount());
-        checkBalances(request.walletId(), request.amount());
-        updateWalletBalanceForWithdraw(request.walletId(), -request.amount());
+        Wallet wallet = getWallet(request.walletId());
+        checkBalances(wallet.getBalance(), wallet.getUsableBalance(), request.amount());
+        updateWalletBalanceForWithdraw(wallet, -request.amount());
         Transaction transaction = transactionMapper.toEntity(request);
         transaction = transactionRepository.save(transaction);
         return transactionMapper.toResponse(transaction);
@@ -93,11 +94,10 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
-    private void checkBalances(String walletId, Double amount) {
-        Wallet wallet = getWallet(walletId);
-        checkBalance(wallet.getBalance(), amount);
+    private void checkBalances(Double balance, Double usableBalance, Double amount) {
+        checkBalance(balance, amount);
         if(amount <= 1000) {
-            checkUsableBalance(wallet.getUsableBalance(), amount);
+            checkUsableBalance(usableBalance, amount);
         }
     }
 
@@ -123,14 +123,13 @@ public class TransactionServiceImpl implements TransactionService {
         walletRepository.updateWalletBalances(walletId, wallet.getBalance(), wallet.getUsableBalance());
     }
 
-    private void updateWalletBalanceForWithdraw(String walletId, Double amount) {
-        Wallet wallet = getWallet(walletId);
+    private void updateWalletBalanceForWithdraw(Wallet wallet, Double amount) {
         wallet.setUsableBalance(wallet.getUsableBalance() + amount);
         if (amount <= 1000) {
             wallet.setBalance(wallet.getBalance() + amount);
         }
 
-        walletRepository.updateWalletBalances(walletId, wallet.getBalance(), wallet.getUsableBalance());
+        walletRepository.updateWalletBalances(wallet.getId(), wallet.getBalance(), wallet.getUsableBalance());
     }
 
     private void updateWalletBalance(String walletId, Double amount) {
