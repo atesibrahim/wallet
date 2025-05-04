@@ -1,5 +1,4 @@
 spring:
-
   application:
     name: wallet
   datasource:
@@ -42,4 +41,7 @@ logging:
   level:
     root: INFO
     com.ing.wallet: INFO
-    com.ing.wallet.infrastructure.security.token.event: DEBUG
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui

@@ -9,9 +9,11 @@ The application is containerized using Docker for easy deployment.
 - User authentication and authorization using Spring Security.
 - Role-based (CUSTOMER, ADMIN, USER) access control with `AuthorityType` enums.
 - RESTful APIs for wallet operations.
+- Swagger integration for API documentation.
 - Integration with OAuth2 resource server.
 - In-memory H2 database for testing and development.
 - Dockerized for seamless deployment.
+- Unit and integration tests for core functionalities.
 
 ## Prerequisites
 Before running the application, ensure the following are installed:
@@ -94,7 +96,13 @@ The application uses `schema.sql` and `data.sql` files for database initializati
 
 Both files are located in the `src/main/resources` directory. You can modify these files to customize the database schema and initial data as per your requirements.
 
-### 10. Using the API Endpoints
+### 10. API Documentation
+Swagger is used for API documentation.
+You can access the Swagger UI at:
+``` http://localhost:8080/swagger-ui/index.html#/
+```
+![img.png](swagger.png)
+### 11. Using the API Endpoints
 
 To interact with the API endpoints, follow these steps:
 
